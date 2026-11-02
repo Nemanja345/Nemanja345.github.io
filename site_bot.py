@@ -42,7 +42,7 @@ JUNK_WORDS = (
     "artbook", "expansion", "season pass",
 )
 
-MAX_TG_POSTS_PER_RUN = 8      # najvise novih objava po pokretanju
+MAX_TG_POSTS_PER_RUN = 1      # najvise novih objava po pokretanju
 FIRST_RUN_TG_POSTS = 5        # pri prvom pokretanju objavi samo top N (ostalo se tiho oznaci)
 STATE_KEEP_DAYS = 120
 
@@ -372,7 +372,7 @@ def tg_caption(g):
     if ends:
         lines.append(f"⏳ Free until {ends}")
     lines.append("")
-    lines.append(f'\U0001F514 Alerts for any game: <a href="{play_link("telegram", "channel")}">Game Sniper for Android</a>')
+    lines.append(f'\U0001F4F2 Want to see all free games and deals? <a href="{play_link("telegram", "channel")}">Get the Game Sniper app on Google Play</a>')
     return "\n".join(lines)
 
 
@@ -386,7 +386,9 @@ def tg_call(token, method, payload):
 
 
 def tg_send_game(token, chat_id, g):
-    keyboard = {"inline_keyboard": [[{"text": "Claim it now", "url": g["url"]}]]}
+    keyboard = {"inline_keyboard": [
+        [{"text": "Claim it now", "url": g["url"]}],
+        [{"text": "See all deals in the app", "url": play_link("telegram", "channel_button")}]]}
     caption = tg_caption(g)
     code, body = tg_call(token, "sendPhoto", {
         "chat_id": chat_id, "photo": g["thumb"], "caption": caption,
