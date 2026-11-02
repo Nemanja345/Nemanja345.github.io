@@ -2,7 +2,7 @@ name: Update free games page
 
 on:
   schedule:
-    - cron: "20 */6 * * *"
+    - cron: "20 */12 * * *"
   workflow_dispatch:
 
 permissions:
